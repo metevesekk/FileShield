@@ -112,7 +112,7 @@ def decrypt_file_action():
 # GUI Tasarımı
 root = tk.Tk()
 root.title("FileShield")
-root.geometry("400x500")
+root.geometry("500x400")
 root.configure(bg="#F5F5F5")
 
 # Başlık
@@ -124,40 +124,40 @@ logo_frame = tk.Frame(root, bg="#F5F5F5")
 logo_frame.pack(pady=(0, 10))
 # Logo ekle
 logo_image = Image.open("/Users/metevesek/Desktop/FileShield/icons/appIcon.png")
-logo_image = logo_image.resize((80, 80), Image.Resampling.LANCZOS)  # Boyutu küçültüldü
+logo_image = logo_image.resize((80, 80), Image.Resampling.LANCZOS)
 logo_photo = ImageTk.PhotoImage(logo_image)
 logo_label = tk.Label(logo_frame, image=logo_photo, bg="#F5F5F5")
 logo_label.pack()
 
+# Form Container
+form_frame = tk.Frame(root, bg="#F5F5F5")
+form_frame.pack(pady=10, fill="x", padx=20)
+
 # Dosya Seçim Butonu
-frame_file_select = tk.Frame(root, bg="#F5F5F5")
-frame_file_select.pack(pady=10, fill="x", padx=20)
-btn_select_file = tk.Button(frame_file_select, text="Select File", command=select_file, font=("Helvetica Neue", 12), bg="#007AFF", fg="black", compound=tk.RIGHT)
-btn_select_file.pack(side="left", padx=10)
-entry_file_path = tk.Entry(frame_file_select, width=30, font=("Helvetica Neue", 12))
-entry_file_path.pack(side="left", padx=10)
+lbl_file = tk.Label(form_frame, text="Select File:", font=("Helvetica Neue", 12), bg="#F5F5F5")
+lbl_file.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+entry_file_path = tk.Entry(form_frame, width=30, font=("Helvetica Neue", 12))
+entry_file_path.grid(row=0, column=1, padx=10, pady=5, sticky="w")
+btn_select_file = tk.Button(form_frame, text="Browse", command=select_file, font=("Helvetica Neue", 10), bg="#007AFF", fg="black")
+btn_select_file.grid(row=0, column=2, padx=10, pady=5)
 
 # Parola ve Onay Parolası
-frame_password = tk.Frame(root, bg="#F5F5F5")
-frame_password.pack(pady=10, fill="x", padx=20)
-lbl_password = tk.Label(frame_password, text="Password:", font=("Helvetica Neue", 12), bg="#F5F5F5")
-lbl_password.grid(row=0, column=0, padx=10, pady=5)
-entry_password = tk.Entry(frame_password, show="*", width=30, font=("Helvetica Neue", 12))
-entry_password.grid(row=0, column=1, padx=10, pady=5)
+lbl_password = tk.Label(form_frame, text="Password:", font=("Helvetica Neue", 12), bg="#F5F5F5")
+lbl_password.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+entry_password = tk.Entry(form_frame, show="*", width=30, font=("Helvetica Neue", 12))
+entry_password.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 
-lbl_confirm_password = tk.Label(frame_password, text="Confirm Password:", font=("Helvetica Neue", 12), bg="#F5F5F5")
-lbl_confirm_password.grid(row=1, column=0, padx=10, pady=5)
-entry_confirm_password = tk.Entry(frame_password, show="*", width=30, font=("Helvetica Neue", 12))
-entry_confirm_password.grid(row=1, column=1, padx=10, pady=5)
+lbl_confirm_password = tk.Label(form_frame, text="Confirm Password:", font=("Helvetica Neue", 12), bg="#F5F5F5")
+lbl_confirm_password.grid(row=2, column=0, padx=10, pady=5, sticky="w")
+entry_confirm_password = tk.Entry(form_frame, show="*", width=30, font=("Helvetica Neue", 12))
+entry_confirm_password.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
 # Algoritma Seçimi
-frame_algo = tk.Frame(root, bg="#F5F5F5")
-frame_algo.pack(pady=10, fill="x", padx=20)
-lbl_algo = tk.Label(frame_algo, text="Algorithm:", font=("Helvetica Neue", 12), bg="#F5F5F5")
-lbl_algo.pack(side="left", padx=10)
+lbl_algo = tk.Label(form_frame, text="Algorithm:", font=("Helvetica Neue", 12), bg="#F5F5F5")
+lbl_algo.grid(row=3, column=0, padx=10, pady=5, sticky="w")
 algo_var = tk.StringVar(value='Fernet')
-algo_combo = ttk.Combobox(frame_algo, textvariable=algo_var, values=['Fernet', 'AES', 'DES', 'Blowfish'], font=("Helvetica Neue", 12))
-algo_combo.pack(side="left", padx=10)
+algo_combo = ttk.Combobox(form_frame, textvariable=algo_var, values=['Fernet', 'AES', 'DES', 'Blowfish'], font=("Helvetica Neue", 12))
+algo_combo.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
 # Encrypt ve Decrypt Butonları
 frame_buttons = tk.Frame(root, bg="#F5F5F5")
