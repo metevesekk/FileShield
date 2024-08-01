@@ -5,6 +5,7 @@ from cryptography.fernet import Fernet
 import hashlib
 import os
 from Crypto.Cipher import AES, DES, Blowfish
+from PIL import Image, ImageTk
 
 # Şifreleme Fonksiyonları
 def create_key_from_password(password):
@@ -111,17 +112,27 @@ def decrypt_file_action():
 # GUI Tasarımı
 root = tk.Tk()
 root.title("FileShield")
-root.geometry("400x350")
+root.geometry("400x500")
 root.configure(bg="#F5F5F5")
 
 # Başlık
 title_label = tk.Label(root, text="FileShield", font=("Helvetica Neue", 24, "bold"), fg="black", bg="#F5F5F5")
-title_label.pack(pady=20)
+title_label.pack(pady=(10, 5))
+
+# Logo Container
+logo_frame = tk.Frame(root, bg="#F5F5F5")
+logo_frame.pack(pady=(0, 10))
+# Logo ekle
+logo_image = Image.open("/Users/metevesek/Desktop/FileShield/icons/appIcon.png")
+logo_image = logo_image.resize((80, 80), Image.Resampling.LANCZOS)  # Boyutu küçültüldü
+logo_photo = ImageTk.PhotoImage(logo_image)
+logo_label = tk.Label(logo_frame, image=logo_photo, bg="#F5F5F5")
+logo_label.pack()
 
 # Dosya Seçim Butonu
 frame_file_select = tk.Frame(root, bg="#F5F5F5")
 frame_file_select.pack(pady=10, fill="x", padx=20)
-btn_select_file = tk.Button(frame_file_select, text="Select File", command=select_file, font=("Helvetica Neue", 12), bg="#007AFF", fg="white")
+btn_select_file = tk.Button(frame_file_select, text="Select File", command=select_file, font=("Helvetica Neue", 12), bg="#007AFF", fg="black", compound=tk.RIGHT)
 btn_select_file.pack(side="left", padx=10)
 entry_file_path = tk.Entry(frame_file_select, width=30, font=("Helvetica Neue", 12))
 entry_file_path.pack(side="left", padx=10)
@@ -151,9 +162,20 @@ algo_combo.pack(side="left", padx=10)
 # Encrypt ve Decrypt Butonları
 frame_buttons = tk.Frame(root, bg="#F5F5F5")
 frame_buttons.pack(pady=20, fill="x", padx=20)
-btn_encrypt = tk.Button(frame_buttons, text="Encrypt", command=protect_file, font=("Helvetica Neue", 12, "bold"), bg="#34C759", fg="white", width=10)
-btn_encrypt.pack(side="left", padx=10)
-btn_decrypt = tk.Button(frame_buttons, text="Decrypt", command=decrypt_file_action, font=("Helvetica Neue", 12, "bold"), bg="#FF3B30", fg="white", width=10)
-btn_decrypt.pack(side="right", padx=10)
+btn_encrypt = tk.Button(frame_buttons, text="Encrypt", command=protect_file, font=("Helvetica Neue", 12, "bold"), bg="#34C759", fg="black", width=80, compound=tk.RIGHT)
+btn_encrypt.pack(side="left", padx=10, pady=(0, 5))
+btn_decrypt = tk.Button(frame_buttons, text="Decrypt", command=decrypt_file_action, font=("Helvetica Neue", 12, "bold"), bg="#FF3B30", fg="black", width=80, compound=tk.RIGHT)
+btn_decrypt.pack(side="right", padx=10, pady=(0, 5))
+
+# Encrypt ve Decrypt butonlarına resim ekleme
+encrypt_image = Image.open("/Users/metevesek/Desktop/FileShield/icons/encryptIcon.png")
+encrypt_image = encrypt_image.resize((20, 20), Image.Resampling.LANCZOS)
+encrypt_photo = ImageTk.PhotoImage(encrypt_image)
+btn_encrypt.config(image=encrypt_photo, compound="right")
+
+decrypt_image = Image.open("/Users/metevesek/Desktop/FileShield/icons/decryptIcon.png")
+decrypt_image = decrypt_image.resize((20, 20), Image.Resampling.LANCZOS)
+decrypt_photo = ImageTk.PhotoImage(decrypt_image)
+btn_decrypt.config(image=decrypt_photo, compound="right")
 
 root.mainloop()
